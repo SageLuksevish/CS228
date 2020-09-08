@@ -17,8 +17,15 @@ Leap.loop(controllerOptions, function(frame)
 {
 if (frame.hands.length == 1){
 
-console.log(frame.hands.length[0]);
+var hand = frame.hands[0];
+
+var fingers = hand.fingers[0];
+
+console.log(fingers);
+
+//console.log(frame.hands[0]);
 }
+
 //clear();
 
 //r = getRndInteger(-1,1);

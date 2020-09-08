@@ -1,6 +1,5 @@
 var controllerOptions = {};
 
-var i = 0;
 var x = (.5 * window.innerWidth);
 var y = (.5 * window.innerHeight);
 var r = 0;
@@ -16,16 +15,15 @@ function getRndInteger(min, max) {
 
 Leap.loop(controllerOptions, function(frame)
 {
+clear();
 
 r = getRndInteger(-1,1);
+s = getRndInteger(-1,1);
 
 x += r;
+y += s;
 
 circle(x, y, 50);
-
-console.log(i);
-
-i++;
 
 }
 );

@@ -19,10 +19,27 @@ if (frame.hands.length == 1){
 
 var hand = frame.hands[0];
 
-var fingers = hand.fingers[0];
+var fingers = hand.fingers;
 
-console.log(fingers);
+for (var n = 0; n < fingers.length; n++){
 
+var currentFinger = fingers[n];
+var currentFingerType = currentFinger.type;
+
+var nameMap = ["thumb", "index", "middle", "ring", "pinky"];
+var currentFingerName = nameMap[currentFingerType];
+var fingerName = nameMap[n];
+
+if (currentFingerName == "index"){
+console.log(currentFinger);
+}
+
+//console.log(fingers[n]);
+
+//console.log(fingers);
+}
+
+//console.log(fingers);
 //console.log(frame.hands[0]);
 }
 

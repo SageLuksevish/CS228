@@ -15,8 +15,10 @@ function getRndInteger(min, max) {
 
 Leap.loop(controllerOptions, function(frame)
 {
-console.log(frame.hands.length);
+if (frame.hands.length == 1){
 
+console.log(frame.hands.length[0]);
+}
 //clear();
 
 //r = getRndInteger(-1,1);

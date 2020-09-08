@@ -15,15 +15,17 @@ function getRndInteger(min, max) {
 
 Leap.loop(controllerOptions, function(frame)
 {
-clear();
+console.log(frame);
 
-r = getRndInteger(-1,1);
-s = getRndInteger(-1,1);
+//clear();
 
-x += r;
-y += s;
+//r = getRndInteger(-1,1);
+//s = getRndInteger(-1,1);
 
-circle(x, y, 50);
+//x += r;
+//y += s;
+
+//circle(x, y, 50);
 
 }
 );

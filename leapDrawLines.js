@@ -37,7 +37,7 @@ var nameMap = ["thumb", "index", "middle", "ring", "pinky"];
 var curFingerName = nameMap[curFingerType];
 //var fingerName = nameMap[n];
 
-if (curFingerName == "index"){
+//if (curFingerName == "index"){
 console.log(curFinger.tipPosition);
 
 x = curFinger.tipPosition[0];
@@ -67,7 +67,7 @@ newX = ((x - rawXMin) / (rawXMax - rawXMin)) * (window.innerWidth)
 newY = ((y - rawYMin) / (rawYMax - rawYMin)) * (window.innerWidth)
 
 circle(newX,newY,100);
-}
+//}
 }
 
 

@@ -31,49 +31,18 @@ handleFinger(fingers[n]);
 
 function handleFinger(nxtFinger){
 var curFinger = nxtFinger;
-var curFingerType = curFinger.type;
+var bones = curFinger.bones;
 
-var nameMap = ["thumb", "index", "middle", "ring", "pinky"];
-var curFingerName = nameMap[curFingerType];
-//var fingerName = nameMap[n];
+for (var n = 0; n < bones.length ; n++){
+var boneType = bones[n];
 
-//if (curFingerName == "index"){
-console.log(curFinger.tipPosition);
+handleBone(boneType);
+}}
 
-x = curFinger.tipPosition[0];
-y = curFinger.tipPosition[1];
-z = curFinger.tipPosition[2];
-
-y *= -window.innerHeight;
-
-if(x < rawXMin) {
-rawXMin =x;
+function handleBone(boneType){
+var indiBone = boneType;
+console.log(indiBone);
 }
-
-if(x > rawXMax) {
-rawXMax =x;
-}
-
-if(y < rawYMin) {
-rawYMin =y;
-}
-
-if(y > rawYMax) {
-rawYMax =y;
-}
-
-newX = ((x - rawXMin) / (rawXMax - rawXMin)) * (window.innerWidth)
-
-newY = ((y - rawYMin) / (rawYMax - rawYMin)) * (window.innerWidth)
-
-circle(newX,newY,100);
-//}
-}
-
-
-//function getRndInteger(min, max) {
- // return Math.floor(Math.random() * (max - min + 1) ) + min;
-//}
 
 Leap.loop(controllerOptions, function(frame)
 {

@@ -49,13 +49,29 @@ x = indiBone.nextJoint[0];
 x1 = indiBone.prevJoint[0]
 y = indiBone.nextJoint[1];
 y1 = indiBone.prevJoint[1];
-z = indiBone.nextJoint[2];
-z1 = indiBone.prevJoint[2];
 
-transformCoords(x, y);
-transformCoords(x1, y1);
+[x,y] = transformCoords(x, y);
+[x1, y1] = transformCoords(x1, y1);
 
-line(newX,newY,z,newX1,newY1,z1);
+if (indiBone.type == 0){
+stroke('#fae');
+strokeWeight(7);
+line(x1,y1,x,y,);
+} else if (indiBone.type == 1){
+stroke(255,204,0);
+strokeWeight(5);
+line(x1,y1,x,y,);
+} else if (indiBone.type == 2){
+stroke('red');
+strokeWeight(3);
+line(x1,y1,x,y,);
+} else {
+stroke(51);
+strokeWeight(2);
+line(x1,y1,x,y,);
+}
+
+
 }
 
 function transformCoords(x,y){
@@ -78,11 +94,9 @@ rawYMax =y;
 }
 
 newX = ((x - rawXMin) / (rawXMax - rawXMin)) * (window.innerWidth)
-newX1 = ((x1 - rawXMin) / (rawXMax - rawXMin)) * (window.innerWidth)
-
 newY = ((y - rawYMin) / (rawYMax - rawYMin)) * (window.innerWidth)
-newY1 = ((y1 - rawYMin) / (rawYMax - rawYMin)) * (window.innerWidth)
 
+return [newX, newY];
 }
 
 Leap.loop(controllerOptions, function(frame)

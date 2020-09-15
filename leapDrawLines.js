@@ -1,8 +1,11 @@
 var controllerOptions = {};
 
 var x = 0;
+var x1 = 0;
 var y = 0;
+var y1 = 0;
 var z = 0;
+var z1 = 0;
 var rawXMin = 1000000;
 var rawXMax = -1000000;
 var rawYMin = 1000000;
@@ -43,9 +46,19 @@ function handleBone(boneType){
 var indiBone = boneType;
 
 x = indiBone.nextJoint[0];
+x1 = indiBone.prevJoint[0]
 y = indiBone.nextJoint[1];
+y1 = indiBone.prevJoint[1];
 z = indiBone.nextJoint[2];
+z1 = indiBone.prevJoint[2];
 
+transformCoords(x, y);
+transformCoords(x1, y1);
+
+line(newX,newY,z,newX1,newY1,z1);
+}
+
+function transformCoords(x,y){
 y *= -window.innerHeight;
 
 if(x < rawXMin) {
@@ -65,10 +78,11 @@ rawYMax =y;
 }
 
 newX = ((x - rawXMin) / (rawXMax - rawXMin)) * (window.innerWidth)
+newX1 = ((x1 - rawXMin) / (rawXMax - rawXMin)) * (window.innerWidth)
 
 newY = ((y - rawYMin) / (rawYMax - rawYMin)) * (window.innerWidth)
+newY1 = ((y1 - rawYMin) / (rawYMax - rawYMin)) * (window.innerWidth)
 
-circle(newX,newY,100);
 }
 
 Leap.loop(controllerOptions, function(frame)

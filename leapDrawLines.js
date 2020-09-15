@@ -37,16 +37,6 @@ handleBone(bones[n]);
 }
 }
 
-function handleFinger(nxtFinger){
-var curFinger = nxtFinger;
-var bones = curFinger.bones;
-
-for (var n = 0; n < bones.length ; n++){
-var boneType = bones[n];
-
-handleBone(boneType);
-}}
-
 function handleBone(boneType){
 var indiBone = boneType;
 
@@ -75,8 +65,6 @@ stroke(51);
 strokeWeight(2);
 line(x1,y1,x,y,);
 }
-
-
 }
 
 function transformCoords(x,y){

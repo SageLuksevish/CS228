@@ -46,7 +46,29 @@ x = indiBone.nextJoint[0];
 y = indiBone.nextJoint[1];
 z = indiBone.nextJoint[2];
 
-console.log(x,y,z);
+y *= -window.innerHeight;
+
+if(x < rawXMin) {
+rawXMin =x;
+}
+
+if(x > rawXMax) {
+rawXMax =x;
+}
+
+if(y < rawYMin) {
+rawYMin =y;
+}
+
+if(y > rawYMax) {
+rawYMax =y;
+}
+
+newX = ((x - rawXMin) / (rawXMax - rawXMin)) * (window.innerWidth)
+
+newY = ((y - rawYMin) / (rawYMax - rawYMin)) * (window.innerWidth)
+
+circle(newX,newY,100);
 }
 
 Leap.loop(controllerOptions, function(frame)

@@ -27,8 +27,13 @@ handleHand(hand);
 function handleHand(hand){
 var fingers = hand.fingers;
 
-for (var n = 0; n < fingers.length; n++){
-handleFinger(fingers[n]);
+for (var n = 0; n < 4; n++){
+//handleFinger(fingers[n]);
+for (var s =0; s < 5; s++){
+var curFinger = fingers[s];
+var bones = curFinger.bones;
+handleBone(bones[n]);
+}
 }
 }
 

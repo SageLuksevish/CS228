@@ -41,7 +41,12 @@ handleBone(boneType);
 
 function handleBone(boneType){
 var indiBone = boneType;
-console.log(indiBone);
+
+x = indiBone.nextJoint[0];
+y = indiBone.nextJoint[1];
+z = indiBone.nextJoint[2];
+
+console.log(x,y,z);
 }
 
 Leap.loop(controllerOptions, function(frame)

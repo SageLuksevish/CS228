@@ -86,10 +86,10 @@ if(y > rawYMax) {
 rawYMax =y;
 }
 
-x = ((x - rawXMin) / (rawXMax - rawXMin)) * (window.innerWidth)
-y = ((y - rawYMin) / (rawYMax - rawYMin)) * (window.innerWidth)
+newX = ((x - rawXMin) / (rawXMax - rawXMin)) * (window.innerWidth)
+newY = ((y - rawYMin) / (rawYMax - rawYMin)) * (window.innerWidth)
 
-return [x, y];
+return [newX, newY];
 }
 
 Leap.loop(controllerOptions, function(frame)

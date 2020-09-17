@@ -11,6 +11,19 @@ var rawXMax = -1000000;
 var rawYMin = 1000000;
 var rawYMax = -1000000;
 
+var previousNumHands = 0;
+var currentNumHands = 0;
+
+Leap.loop(controllerOptions, function(frame)
+{
+//clear();
+//handleFrame(frame);
+console.log(previousNumHands);
+console.log(currentNumHands);
+
+}
+);
+
 
 function draw() {
 fill(233,197,28);
@@ -92,9 +105,4 @@ y = ((y - rawYMin) / (rawYMax - rawYMin)) * (window.innerWidth)
 return [x, y];
 }
 
-Leap.loop(controllerOptions, function(frame)
-{
-clear();
-handleFrame(frame);
-}
-);
+

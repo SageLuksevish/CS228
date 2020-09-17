@@ -16,14 +16,14 @@ var currentNumHands = 0;
 
 Leap.loop(controllerOptions, function(frame)
 {
-//clear();
-//handleFrame(frame);
-
 currentNumHands = frame.hands.length;
-console.log(currentNumHands);
+//console.log(currentNumHands);
+
+clear();
+handleFrame(frame);
 
 previousNumHands = frame.hands.length;
-console.log(previousNumHands);
+//console.log(previousNumHands);
 }
 );
 
@@ -65,19 +65,19 @@ y1 = indiBone.prevJoint[1];
 [x1, y1] = transformCoords(x1, y1);
 
 if (indiBone.type == 0){
-stroke('#fae');
+stroke(124,252,0);
 strokeWeight(7);
 line(x1,y1,x,y,);
 } else if (indiBone.type == 1){
-stroke(255,204,0);
+stroke(0,255,127);
 strokeWeight(5);
 line(x1,y1,x,y,);
 } else if (indiBone.type == 2){
-stroke('red');
+stroke(60,179,113);
 strokeWeight(3);
 line(x1,y1,x,y,);
 } else {
-stroke(51);
+stroke(85,107,35);
 strokeWeight(2);
 line(x1,y1,x,y,);
 }

@@ -18,9 +18,12 @@ Leap.loop(controllerOptions, function(frame)
 {
 //clear();
 //handleFrame(frame);
-console.log(previousNumHands);
+
+currentNumHands = frame.hands.length;
 console.log(currentNumHands);
 
+previousNumHands = frame.hands.length;
+console.log(previousNumHands);
 }
 );
 

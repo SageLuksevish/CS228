@@ -104,6 +104,9 @@ if (numHands.length == 1){
     line(x1,y1,x,y,);
 }
 }
+
+RecordData();
+
 }
 
 function transformCoords(x,y){
@@ -131,4 +134,11 @@ y = ((y - rawYMin) / (rawYMax - rawYMin)) * (window.innerWidth)
 return [x, y];
 }
 
+
+function RecordData (){
+
+if (previousNumHands == 2 && currentNumHands == 1){
+background(51);
+}
+}
 

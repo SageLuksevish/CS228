@@ -47,22 +47,27 @@ var xEnd = 0;
 var yEnd = 0;
 var zEnd = 0;
 
+var frameIndex = 0;
+var flopRate = 0;
+
 function draw() {
     clear();
+
 
     for (n=0; n < 5; n++){
 
         for (s=0; s< 4; s++){
             //console.log(oneFrameOfData.toString());
+
+            if(flopRate % 2 ==0){
             xStart = oneFrameOfData.get(n,s,0);
             yStart = oneFrameOfData.get(n,s,1);
             zStart = oneFrameOfData.get(n,s,2);
             xEnd = oneFrameOfData.get(n,s,3);
             yEnd = oneFrameOfData.get(n,s,4);
             zEnd = oneFrameOfData.get(5,5,5);
-
             line(xStart, yStart, xEnd, yEnd);
-
+            }else{
             xStart = secondFrameOfData.get(n,s,0);
             yStart = secondFrameOfData.get(n,s,1);
             zStart = secondFrameOfData.get(n,s,2);
@@ -71,10 +76,25 @@ function draw() {
             zEnd = secondFrameOfData.get(5,5,5);
 
             line(xStart, yStart, xEnd, yEnd);
-
+            }
             //console.log(xStart, yStart, zStart, xEnd, yEnd, zEnd);
         }
     }
+
+    frameIndex++;
+
+    if (frameIndex == 100){
+    frameIndex = 0;
+        if(flopRate == 0){
+        flopRate = 1;
+        }else{
+        flopRate = 0;
+        }
+
+        console.log(flopRate);
+    }
+
+
 }
 
 

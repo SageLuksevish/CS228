@@ -14,7 +14,7 @@ var rawYMax = -1000000;
 var previousNumHands = 0;
 var currentNumHands = 0;
 
-var oneFrameOfData = nj.zeros([5,4]);
+var oneFrameOfData = nj.zeros([5,4,6]);
 
 Leap.loop(controllerOptions, function(frame)
 {
@@ -25,9 +25,6 @@ clear();
 handleFrame(frame);
 
 previousNumHands = frame.hands.length;
-
-
-console.log(oneFrameOfData.toString());
 }
 );
 
@@ -76,7 +73,12 @@ z1 = indiBone.prevJoint[2];
 
 var cordSum = (x + x1 + y + y1 + z + z1);
 
-oneFrameOfData.set(fingerIndex,indiBone.type,cordSum);
+oneFrameOfData.set(fingerIndex,indiBone.type,0,x);
+oneFrameOfData.set(fingerIndex,indiBone.type,1,y);
+oneFrameOfData.set(fingerIndex,indiBone.type,2,z);
+oneFrameOfData.set(fingerIndex,indiBone.type,3,x1);
+oneFrameOfData.set(fingerIndex,indiBone.type,4,y1);
+oneFrameOfData.set(fingerIndex,indiBone.type,5,z1);
 
 if (numHands.length == 1){
 
@@ -151,6 +153,7 @@ function RecordData (){
 
 if (previousNumHands == 2 && currentNumHands == 1){
 background(51);
+console.log(oneFrameOfData.toString());
 }
 }
 

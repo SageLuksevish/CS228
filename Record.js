@@ -14,7 +14,7 @@ var rawYMax = -1000000;
 var previousNumHands = 0;
 var currentNumHands = 0;
 
-var oneFrameOfData = nj.zeros([5]);
+var oneFrameOfData = nj.zeros([5,4]);
 
 Leap.loop(controllerOptions, function(frame)
 {
@@ -76,7 +76,7 @@ z1 = indiBone.prevJoint[2];
 
 var cordSum = (x + x1 + y + y1 + z + z1);
 
-oneFrameOfData.set(fingerIndex,cordSum);
+oneFrameOfData.set(fingerIndex,indiBone.type,cordSum);
 
 if (numHands.length == 1){
 

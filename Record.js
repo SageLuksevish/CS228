@@ -14,16 +14,20 @@ var rawYMax = -1000000;
 var previousNumHands = 0;
 var currentNumHands = 0;
 
+var oneFrameOfData = nj.zeros([5]);
+
 Leap.loop(controllerOptions, function(frame)
 {
 currentNumHands = frame.hands.length;
-//console.log(currentNumHands);
+
 
 clear();
 handleFrame(frame);
 
 previousNumHands = frame.hands.length;
-//console.log(previousNumHands);
+
+
+console.log(oneFrameOfData.toString());
 }
 );
 
@@ -50,21 +54,29 @@ for (var n = 0; n < 4; n++){
 for (var s =0; s < 5; s++){
 var curFinger = fingers[s];
 var bones = curFinger.bones;
-handleBone(bones[n], numHands);
+var fingType = curFinger.type;
+
+handleBone(bones[n], numHands, fingType);
 }
 }
 }
 
-function handleBone(boneType, numHands){
+function handleBone(boneType, numHands, fingerIndex){
 var indiBone = boneType;
 
 x = indiBone.nextJoint[0];
 x1 = indiBone.prevJoint[0]
 y = indiBone.nextJoint[1];
 y1 = indiBone.prevJoint[1];
+z = indiBone.nextJoint[2];
+z1 = indiBone.prevJoint[2];
 
 [x,y] = transformCoords(x, y);
 [x1, y1] = transformCoords(x1, y1);
+
+var cordSum = (x + x1 + y + y1 + z + z1);
+
+oneFrameOfData.set(fingerIndex,cordSum);
 
 if (numHands.length == 1){
 

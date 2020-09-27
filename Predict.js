@@ -164,8 +164,6 @@ function draw() {
 
     var irisString = irisData.toString();
 
-    console.log(irisString);
-
     if (trainingCompleted == false){
 
         train();
@@ -178,8 +176,14 @@ function draw() {
 
 function train(){
 
-    for(i=0; i < 150 && i%2== 0; i++){
-        console.log(irisData[i]);
+    for(i=0; i < 150; i++){
+
+        if (i%2 == 0){
+        console.log(i);
+        //console.log(irisData.pick(i).toString());
+        console.log(irisData.pick(i).slice([4]).toString());
+
+        }
     }
 
 trainingCompleted = true;

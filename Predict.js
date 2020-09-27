@@ -171,19 +171,21 @@ function draw() {
         train();
     }
 
-    test();
+    //test();
 
 }
 
 
 function train(){
 
-console.log("I am being trained.");
+    for(i=0; i < 150 && i%2== 0; i++){
+        console.log(irisData[i]);
+    }
 
 trainingCompleted = true;
 }
 
 function test(){
 
-console.log("I am being tested.");
+
 }

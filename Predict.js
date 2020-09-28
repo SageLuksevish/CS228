@@ -3,6 +3,7 @@ var trainingCompleted = false;
 var numSamples = 0;
 var numFeatures = 0;
 var currentLabel = 0;
+var testingSampleIndex = 1;
 
 const knnClassifier = ml5.KNNClassifier();
 var predictLabel;
@@ -193,13 +194,6 @@ function train(){
         console.log(currentFeatures.toString());
 
         knnClassifier.addExample(currentFeatures.tolist(), irisData.pick(i).get(4));
-
-        predictLabel = knnClassifier.classify(currentFeatures.tolist(),GotResults);
-
-        currentLabel = irisData.pick(i).get(4);
-
-        console.log(currentLabel);
-        console.log(predictLabel);
         }
     }
 
@@ -207,18 +201,23 @@ trainingCompleted = true;
 }
 
 function test(){
-    for (i=0; i < 150; i++){
 
-        if (i%2 != 0){
-            //console.log(i);
 
-            //console.log(irisData.pick(i).toString());
+            currentFeatures = irisData.pick(testingSampleIndex).slice([4]);
 
-            currentLabel = irisData.pick(i).get(4);
+            //console.log(currentFeatures.toString());
+
+            predictLabel = knnClassifier.classify(currentFeatures.tolist(),GotResults);
+
+            currentLabel = irisData.pick(testingSampleIndex).get(4);
 
             //console.log(currentLabel);
-        }
-    }
+
+
+           // console.log(predictLabel);
+            //console.log(irisData.pick(i).toString());
+
+
 
 
 

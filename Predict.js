@@ -8,7 +8,6 @@ var testingSampleIndex = 1;
 const knnClassifier = ml5.KNNClassifier();
 var predictLabel;
 
-
 var currentFeatures = nj.array();
 
 var irisData = nj.array([[	5.1	,	3.5	,	1.4	,	0.2	,	0	],
@@ -166,6 +165,8 @@ var irisData = nj.array([[	5.1	,	3.5	,	1.4	,	0.2	,	0	],
 numSamples = irisData.shape[0];
 numFeatures = (irisData.shape[1] - 1);
 
+var predictedClassLabels = nj.zeros([numSamples]);
+
 
 function draw() {
     clear();
@@ -205,6 +206,9 @@ trainingCompleted = true;
 function test(){
 
 
+        console.log(testingSampleIndex);
+
+        if (testingSampleIndex%2 != 0){
             currentFeatures = irisData.pick(testingSampleIndex).slice([2]);
 
             //console.log(currentFeatures.toString());
@@ -218,16 +222,26 @@ function test(){
 
            // console.log(predictLabel);
             //console.log(irisData.pick(i).toString());
+        }
 
 }
 
 function GotResults(err, result){
     //console.log(result.label);
 
+    predictedClassLabels.set(testingSampleIndex,parseInt(result.label));
+
+    //console.log(testingSampleIndex);
+    //console.log(parseInt(result.label));
+
+    //console.log(predictedClassLabels.toString());
+
     testingSampleIndex++;
     if (testingSampleIndex == 151){
         testingSampleIndex = 1;
     }
+
+
 }
 
 function DrawCircles(){
@@ -238,6 +252,7 @@ function DrawCircles(){
         var y = (irisData.pick(i).get(1)) * (100);
         var c = (irisData.pick(i).get(4));
         //console.log(i,x,y);
+
         if (c == 0){
             fill('red');
         }else if (c == 1){
@@ -245,7 +260,22 @@ function DrawCircles(){
         }else{
             fill('green');
         }
-        circle(x,y,10);
+
+        if(i % 2 == 0){
+            stroke(51);
+        }else{
+                if (predictedClassLabels.get(testingSampleIndex) == 0){
+                stroke('red');
+                }else if (predictedClassLabels.get(testingSampleIndex) == 1){
+                stroke('blue');
+                }else{
+                stroke('green');
+            }
+        }
+
+        //circle(x,y,15);
+
+
 
     }
 }

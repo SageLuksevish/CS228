@@ -234,9 +234,18 @@ function DrawCircles(){
 
     for(i=0; i < 150; i++){
 
-        var x = irisData.pick(i).get(0);
-        var y = irisData.pick(i).get(1);
-        console.log(i,x,y);
+        var x = (irisData.pick(i).get(0)) * (100);
+        var y = (irisData.pick(i).get(1)) * (100);
+        var c = (irisData.pick(i).get(4));
+        //console.log(i,x,y);
+        if (c == 0){
+            fill('red');
+        }else if (c == 1){
+            fill('blue');
+        }else{
+            fill('green');
+        }
+        circle(x,y,10);
 
     }
 }

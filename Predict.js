@@ -192,7 +192,7 @@ function train(){
         if (i%2 == 0){
         //console.log(i);
 
-        currentFeatures = irisData.pick(i).slice([2]);
+        currentFeatures = irisData.pick(i).slice([4]);
 
         //console.log(currentFeatures.toString());
 
@@ -209,7 +209,7 @@ function test(){
         console.log(testingSampleIndex);
 
         if (testingSampleIndex%2 != 0){
-            currentFeatures = irisData.pick(testingSampleIndex).slice([2]);
+            currentFeatures = irisData.pick(testingSampleIndex).slice([4]);
 
             //console.log(currentFeatures.toString());
 
@@ -236,8 +236,8 @@ function GotResults(err, result){
 
     //console.log(predictedClassLabels.toString());
 
-    testingSampleIndex++;
-    if (testingSampleIndex == 151){
+    testingSampleIndex+=2;
+    if (testingSampleIndex > 150){
         testingSampleIndex = 1;
     }
 
@@ -264,16 +264,16 @@ function DrawCircles(){
         if(i % 2 == 0){
             stroke(51);
         }else{
-                if (predictedClassLabels.get(testingSampleIndex) == 0){
+                if (predictedClassLabels.get(i) == 0){
                 stroke('red');
-                }else if (predictedClassLabels.get(testingSampleIndex) == 1){
+                }else if (predictedClassLabels.get(i) == 1){
                 stroke('blue');
                 }else{
                 stroke('green');
             }
         }
 
-        //circle(x,y,15);
+        circle(x,y,20);
 
 
 

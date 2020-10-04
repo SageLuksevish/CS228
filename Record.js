@@ -68,6 +68,9 @@ function handleBone(boneType, numHands, fingerIndex, intBox){
 var interBox = intBox;
 var indiBone = boneType;
 
+var bonePrevJoint = indiBone.prevJoint;
+var boneNextJoint = indiBone.nextJoint;
+
 x = indiBone.nextJoint[0];
 x1 = indiBone.prevJoint[0]
 y = indiBone.nextJoint[1];
@@ -75,9 +78,11 @@ y1 = indiBone.prevJoint[1];
 z = indiBone.nextJoint[2];
 z1 = indiBone.prevJoint[2];
 
-var normalizedPrevJoint = interBox.normalizePoint(x1, true);
-
+var normalizedPrevJoint = interBox.normalizePoint(bonePrevJoint, true);
 console.log(normalizedPrevJoint);
+
+var normalizedNextJoint = interBox.normalizePoint(boneNextJoint, true);
+console.log(normalizedNextJoint);
 
 [x,y] = transformCoords(x, y);
 [x1, y1] = transformCoords(x1, y1);

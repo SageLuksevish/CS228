@@ -71,23 +71,18 @@ var indiBone = boneType;
 var bonePrevJoint = indiBone.prevJoint;
 var boneNextJoint = indiBone.nextJoint;
 
-x = indiBone.nextJoint[0];
-x1 = indiBone.prevJoint[0]
-y = indiBone.nextJoint[1];
-y1 = indiBone.prevJoint[1];
-z = indiBone.nextJoint[2];
-z1 = indiBone.prevJoint[2];
 
 var normalizedPrevJoint = interBox.normalizePoint(bonePrevJoint, true);
-console.log(normalizedPrevJoint);
+//console.log(normalizedPrevJoint);
 
 var normalizedNextJoint = interBox.normalizePoint(boneNextJoint, true);
-console.log(normalizedNextJoint);
 
-[x,y] = transformCoords(x, y);
-[x1, y1] = transformCoords(x1, y1);
-
-var cordSum = (x + x1 + y + y1 + z + z1);
+x = normalizedPrevJoint[0];
+y = normalizedPrevJoint[1];
+z = normalizedPrevJoint[2];
+x1 = normalizedNextJoint[0]
+y1 = normalizedNextJoint[1];
+z1 = normalizedNextJoint[2];
 
 oneFrameOfData.set(fingerIndex,indiBone.type,0,x);
 oneFrameOfData.set(fingerIndex,indiBone.type,1,y);
@@ -96,22 +91,36 @@ oneFrameOfData.set(fingerIndex,indiBone.type,3,x1);
 oneFrameOfData.set(fingerIndex,indiBone.type,4,y1);
 oneFrameOfData.set(fingerIndex,indiBone.type,5,z1);
 
+var canvasX = window.innerWidth * normalizedPrevJoint[0];
+var canvasY = window.innerHeight * (1 - normalizedPrevJoint[1]);
+
+var canvasX2 = window.innerWidth * normalizedNextJoint[0];
+var canvasY2 = window.innerHeight * (1 - normalizedNextJoint[1]);
+
+
+//[x,y] = transformCoords(x, y);
+//[x1, y1] = transformCoords(x1, y1);
+
+var cordSum = (x + x1 + y + y1 + z + z1);
+
+
+
 if (numHands.length == 1){
 
     if (indiBone.type == 0){
     stroke(124,252,0);
     strokeWeight(7);
-    line(x1,y1,x,y,);
+    line(canvasX,canvasY,canvasX2,canvasY2,);
     } else if (indiBone.type == 1){
     stroke(0,255,127);
     strokeWeight(5);
-    line(x1,y1,x,y,);
+    line(canvasX,canvasY,canvasX2,canvasY2);
     } else if (indiBone.type == 2){
     stroke(60,179,113);
     strokeWeight(3);
-    line(x1,y1,x,y,);
+    line(canvasX,canvasY,canvasX2,canvasY2);
     } else {
-    stroke(85,107,35);
+    stroke(canvasX,canvasY,canvasX2,canvasY2);
     strokeWeight(2);
     line(x1,y1,x,y,);
 }
@@ -119,19 +128,19 @@ if (numHands.length == 1){
     if (indiBone.type == 0){
     stroke(255,0,0);
     strokeWeight(7);
-    line(x1,y1,x,y,);
+    line(canvasX,canvasY,canvasX2,canvasY2);
     } else if (indiBone.type == 1){
     stroke(255,99,71);
     strokeWeight(5);
-    line(x1,y1,x,y,);
+    line(canvasX,canvasY,canvasX2,canvasY2);
     } else if (indiBone.type == 2){
     stroke(178,34,34);
     strokeWeight(3);
-    line(x1,y1,x,y,);
+    line(canvasX,canvasY,canvasX2,canvasY2);
     } else {
     stroke(128,0,0);
     strokeWeight(2);
-    line(x1,y1,x,y,);
+    line(canvasX,canvasY,canvasX2,canvasY2);
 }
 }
 

@@ -11,13 +11,15 @@ var rawXMax = -1000000;
 var rawYMin = 1000000;
 var rawYMax = -1000000;
 
+var numSamples = 2;
+var currentSample = 0;
 
 //var normalizedPosition = interactionBox.normalizePoint(pointable.tipPosition, true);
 
 var previousNumHands = 0;
 var currentNumHands = 0;
 
-var oneFrameOfData = nj.zeros([5,4,6]);
+var framesOfData = nj.zeros([5,4,6,numSamples]);
 
 Leap.loop(controllerOptions, function(frame)
 {
@@ -84,12 +86,12 @@ x1 = normalizedNextJoint[0]
 y1 = normalizedNextJoint[1];
 z1 = normalizedNextJoint[2];
 
-oneFrameOfData.set(fingerIndex,indiBone.type,0,x);
-oneFrameOfData.set(fingerIndex,indiBone.type,1,y);
-oneFrameOfData.set(fingerIndex,indiBone.type,2,z);
-oneFrameOfData.set(fingerIndex,indiBone.type,3,x1);
-oneFrameOfData.set(fingerIndex,indiBone.type,4,y1);
-oneFrameOfData.set(fingerIndex,indiBone.type,5,z1);
+framesOfData.set(fingerIndex,indiBone.type,0,currentSample,x);
+framesOfData.set(fingerIndex,indiBone.type,1,currentSample,y);
+framesOfData.set(fingerIndex,indiBone.type,2,currentSample,z);
+framesOfData.set(fingerIndex,indiBone.type,3,currentSample,x1);
+framesOfData.set(fingerIndex,indiBone.type,4,currentSample,y1);
+framesOfData.set(fingerIndex,indiBone.type,5,currentSample,z1);
 
 var canvasX = window.innerWidth * normalizedPrevJoint[0];
 var canvasY = window.innerHeight * (1 - normalizedPrevJoint[1]);
@@ -148,37 +150,14 @@ RecordData();
 
 }
 
-function transformCoords(x,y){
-y *= -window.innerHeight;
-
-if(x < rawXMin) {
-rawXMin =x;
-}
-
-if(x > rawXMax) {
-rawXMax =x;
-}
-
-if(y < rawYMin) {
-rawYMin =y;
-}
-
-if(y > rawYMax) {
-rawYMax =y;
-}
-
-x = ((x - rawXMin) / (rawXMax - rawXMin)) * (window.innerWidth)
-y = ((y - rawYMin) / (rawYMax - rawYMin)) * (window.innerWidth)
-
-return [x, y];
-}
 
 
 function RecordData (){
 
 if (previousNumHands == 2 && currentNumHands == 1){
 background(51);
-console.log(oneFrameOfData.toString());
+//console.log(framesOfData.toString());
+console.log(framesOfData.pick(null,null,null,1).toString());
 }
 }
 

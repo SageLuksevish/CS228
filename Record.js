@@ -11,6 +11,9 @@ var rawXMax = -1000000;
 var rawYMin = 1000000;
 var rawYMax = -1000000;
 
+
+//var normalizedPosition = interactionBox.normalizePoint(pointable.tipPosition, true);
+
 var previousNumHands = 0;
 var currentNumHands = 0;
 
@@ -34,16 +37,19 @@ fill(233,197,28);
 }
 
 function handleFrame(frame){
+var interactionBox = frame.interactionBox;
+
 if (frame.hands.length >= 1){
 
 var numHands = frame.hands;
 
 var hand = frame.hands[0];
-handleHand(hand, numHands);
+handleHand(hand, numHands,interactionBox);
 }
 }
 
-function handleHand(hand, numHands){
+function handleHand(hand, numHands, interactionBox){
+var intBox = interactionBox;
 var fingers = hand.fingers;
 
 for (var n = 0; n < 4; n++){
@@ -53,12 +59,13 @@ var curFinger = fingers[s];
 var bones = curFinger.bones;
 var fingType = curFinger.type;
 
-handleBone(bones[n], numHands, fingType);
+handleBone(bones[n], numHands, fingType, intBox);
 }
 }
 }
 
-function handleBone(boneType, numHands, fingerIndex){
+function handleBone(boneType, numHands, fingerIndex, intBox){
+var interBox = intBox;
 var indiBone = boneType;
 
 x = indiBone.nextJoint[0];
@@ -67,6 +74,10 @@ y = indiBone.nextJoint[1];
 y1 = indiBone.prevJoint[1];
 z = indiBone.nextJoint[2];
 z1 = indiBone.prevJoint[2];
+
+var normalizedPrevJoint = interBox.normalizePoint(x1, true);
+
+console.log(normalizedPrevJoint);
 
 [x,y] = transformCoords(x, y);
 [x1, y1] = transformCoords(x1, y1);

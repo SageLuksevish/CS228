@@ -31,7 +31,11 @@ currentNumHands = frame.hands.length;
 clear();
 handleFrame(frame);
 
+RecordData();
+
 previousNumHands = frame.hands.length;
+
+
 }
 );
 
@@ -113,46 +117,41 @@ if (numHands.length == 1){
 
     if (indiBone.type == 0){
     stroke(124,252,0);
-    strokeWeight(7);
+    strokeWeight(7*5);
     line(canvasX,canvasY,canvasX2,canvasY2,);
     } else if (indiBone.type == 1){
     stroke(0,255,127);
-    strokeWeight(5);
+    strokeWeight(5*5);
     line(canvasX,canvasY,canvasX2,canvasY2);
     } else if (indiBone.type == 2){
     stroke(60,179,113);
-    strokeWeight(3);
+    strokeWeight(3*5);
     line(canvasX,canvasY,canvasX2,canvasY2);
-    } else {
-    stroke(canvasX,canvasY,canvasX2,canvasY2);
-    strokeWeight(2);
-    line(x1,y1,x,y,);
+    } else if (indiBone.type == 3){
+    stroke('olive');
+    strokeWeight(2*5);
+    line(canvasX,canvasY,canvasX2,canvasY2);
 }
 } else if (numHands.length == 2){
     if (indiBone.type == 0){
     stroke(255,0,0);
-    strokeWeight(7);
+    strokeWeight(7*5);
     line(canvasX,canvasY,canvasX2,canvasY2);
     } else if (indiBone.type == 1){
     stroke(255,99,71);
-    strokeWeight(5);
+    strokeWeight(5*5);
     line(canvasX,canvasY,canvasX2,canvasY2);
     } else if (indiBone.type == 2){
     stroke(178,34,34);
-    strokeWeight(3);
+    strokeWeight(3*5);
     line(canvasX,canvasY,canvasX2,canvasY2);
-    } else {
+    } else if (indiBone.type == 3) {
     stroke(128,0,0);
-    strokeWeight(2);
+    strokeWeight(2*5);
     line(canvasX,canvasY,canvasX2,canvasY2);
 }
 }
-
-RecordData();
-
 }
-
-
 
 function RecordData (){
 
@@ -166,7 +165,7 @@ if (currentNumHands==2){
 if (previousNumHands == 2 && currentNumHands == 1){
 background(51);
 //console.log(framesOfData.toString());
-console.log(framesOfData.pick(null,null,null,1).toString());
+console.log(framesOfData.toString());
 
 }
 

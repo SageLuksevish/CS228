@@ -11,7 +11,7 @@ var rawXMax = -1000000;
 var rawYMin = 1000000;
 var rawYMax = -1000000;
 
-var numSamples = 2;
+var numSamples = 100;
 var currentSample = 0;
 
 //var normalizedPosition = interactionBox.normalizePoint(pointable.tipPosition, true);

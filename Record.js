@@ -168,6 +168,5 @@ background(51);
 console.log(framesOfData.toString());
 
 }
-
 }
 

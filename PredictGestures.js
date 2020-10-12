@@ -4,7 +4,10 @@ var trainingCompleted = false;
 var numSamples = 0;
 var numFeatures = 0;
 var currentLabel = 0;
-var testingSampleIndex = 0;
+
+var predictIndex =0;
+var meanPredictAcc = 0;
+//var testingSampleIndex = 0;
 
 var framesOfData = nj.zeros([5,4,6]);
 
@@ -38,34 +41,48 @@ Leap.loop(controllerOptions, function(frame){
 
     //console.log(framesOfData.toString());
 
-    test();
-
-
 });
 
 
 function train(){
 
-for (i =0; i <train3.shape[0]; i++){
+for (i =0; i < 100; i++){
     //console.log(train0.pick(null,null,null,i).toString());
     var features = train3.pick(null,null,null,i);
     features = features.reshape(1,120);
     //console.log(features.toString());
     knnClassifier.addExample(features.tolist(), 3);
+    console.log(i, features);
 
     features = train5.pick(null,null,null,i);
     features = features.reshape(1,120);
 
     knnClassifier.addExample(features.tolist(), 5);
+    console.log(i, features);
     }
 
 trainingCompleted = true;
 }
 
 function test(){
+        var xVals = CenterData();
+        var currentMean = xVals.mean();
+        var horizontalShift = (.5 - currentMean);
+        var currentX, shiftedX;
 
-        //var features = test0.pick(null,null,null,testingSampleIndex);
-        //features = features.reshape(1,120);
+        for (i=0; i<5; i++){
+            for (s=0; s<4; s++){
+                currentX = oneFrameOfData.get(i,s,0);
+                shiftedX = currentX + horizontalShift;
+                oneFrameOfData.set(i,s,0, shiftedX);
+
+                currentX = oneFrameOfData.get(i,s,1);
+                shiftedX = currentX + horizontalShift;
+                oneFrameOfData.set(i,s,1, shiftedX);
+            }
+        }
+
+        console.log(currentMean);
 
         predictLabel = knnClassifier.classify(framesOfData.tolist(),GotResults);
 
@@ -73,31 +90,38 @@ function test(){
 
         function GotResults(err, result){
 
-        //predictedClassLabels.set(testingSampleIndex,parseInt(result.label));
-        predictedClassLabels[testingSampleIndex] = parseInt(result.label);
+        predictedClassLabels[0] = parseInt(result.label);
+        //console.log(predictedClassLabels[0]);
 
-        console.log(testingSampleIndex,predictedClassLabels[testingSampleIndex]);
-        //console.log(predictedClassLabels[testingSampleIndex]);
+        predictIndex++;
+        meanPredictAcc = (((predictIndex -1)*(meanPredictAcc)+ (predictedClassLabels[0]==5))/ predictIndex)
+        //console.log(predictIndex, meanPredictAcc, predictedClassLabels[0]);
 
-        testingSampleIndex++;
-        if (testingSampleIndex > 99){
-            testingSampleIndex = 0;
+
+        //testingSampleIndex++;
+        //if (testingSampleIndex > 99){
+        //    testingSampleIndex = 0;
+        //}
         }
+ }
 
-        }
-
+ function CenterData(){
+    var xValues = framesOfData.slice([],[],[0,6,3])
+    return xValues;
  }
 
 function handleFrame(frame){
 var interactionBox = frame.interactionBox;
 
-if (frame.hands.length >= 1){
+    if (frame.hands.length >= 1){
 
-var numHands = frame.hands;
+    var numHands = frame.hands;
 
-var hand = frame.hands[0];
-handleHand(hand, numHands,interactionBox);
-}
+    var hand = frame.hands[0];
+    handleHand(hand, numHands,interactionBox);
+
+    test();
+    }
 }
 
 function handleHand(hand, numHands, interactionBox){
@@ -216,7 +240,7 @@ console.log(framesOfData.toString());
 
 
 
-        //currentLabel = irisData.pick(testingSampleIndex).get(4);
+
 
 
 

@@ -115,9 +115,9 @@ function test(){
         //currentMean = yVals.mean();
         //console.log(currentMean);
 
-        zVals = CenterZData();
-        currentMean = zVals.mean();
-        console.log(currentMean);
+        //zVals = CenterZData();
+        //currentMean = zVals.mean();
+        //console.log(currentMean);
 
         predictLabel = knnClassifier.classify(framesOfData.tolist(),GotResults);
 
@@ -130,7 +130,7 @@ function test(){
 
         predictIndex++;
         meanPredictAcc = (((predictIndex -1)*(meanPredictAcc)+ (predictedClassLabels[0]==5))/ predictIndex)
-        //console.log(predictIndex, meanPredictAcc, predictedClassLabels[0]);
+        console.log(predictIndex, meanPredictAcc, predictedClassLabels[0]);
 
 
         //testingSampleIndex++;

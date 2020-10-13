@@ -40,32 +40,48 @@ for (i =0; i < 100; i++){
     features = features.reshape(1,120);
     //console.log(features.toString());
     knnClassifier.addExample(features.tolist(), 3);
-    console.log(i, features);
+    console.log(i, features.toString(),3);
 
     features = train5.pick(null,null,null,i);
     features = features.reshape(1,120);
     knnClassifier.addExample(features.tolist(), 5);
-    console.log(i, features);
+    console.log(i, features.toString(),5);
 
-    /*features = train0.pick(null,null,null,i);
+    features = train0.pick(null,null,null,i);
     features = features.reshape(1,120);
     knnClassifier.addExample(features.tolist(), 0);
-    console.log(i, features);*/
+    //console.log(i, features);
 
     features = train1.pick(null,null,null,i);
     features = features.reshape(1,120);
     knnClassifier.addExample(features.tolist(), 1);
-    console.log(i, features);
+    //console.log(i, features);
 
-    /*features = train2.pick(null,null,null,i);
+    features = train2.pick(null,null,null,i);
     features = features.reshape(1,120);
     knnClassifier.addExample(features.tolist(), 2);
-    console.log(i, features);*/
+    //console.log(i, features);
 
     features = train4.pick(null,null,null,i);
     features = features.reshape(1,120);
     knnClassifier.addExample(features.tolist(), 4);
-    console.log(i, features);
+    //console.log(i, features);
+
+    features = train6.pick(null,null,null,i);
+    features = features.reshape(1,120);
+    knnClassifier.addExample(features.tolist(), 6);
+
+    features = train7.pick(null,null,null,i);
+    features = features.reshape(1,120);
+    knnClassifier.addExample(features.tolist(), 7);
+
+    features = train8.pick(null,null,null,i);
+    features = features.reshape(1,120);
+    knnClassifier.addExample(features.tolist(), 8);
+
+    features = train9.pick(null,null,null,i);
+    features = features.reshape(1,120);
+    knnClassifier.addExample(features.tolist(), 9);
 
     }
 
@@ -77,10 +93,12 @@ function test(){
         var currentMean = xVals.mean();
         var horizontalShift = (.5 - currentMean);
         //console.log(currentMean);
+
         var yVals = CenterYData();
         currentMean = yVals.mean();
         var verticalShift = (.5 - currentMean);
         //console.log(currentMean);
+
         var zVals = CenterZData();
         currentMean = zVals.mean();
         var forwardShift = (.5 - currentMean);
@@ -94,25 +112,25 @@ function test(){
                 shiftedX = currentX + horizontalShift;
                 framesOfData.set(i,s,0, shiftedX);
 
-                currentX = framesOfData.get(i,s,3);
+                currentX = framesOfData.get(i,s,1);
                 shiftedX = currentX + horizontalShift;
-                framesOfData.set(i,s,3, shiftedX);
+                framesOfData.set(i,s,1, shiftedX);
+
+                currentY = framesOfData.get(i,s,0);
+                shiftedY = currentY + verticalShift;
+                framesOfData.set(i,s,0, shiftedY);
 
                 currentY = framesOfData.get(i,s,1);
                 shiftedY = currentY + verticalShift;
                 framesOfData.set(i,s,1, shiftedY);
 
-                currentY = framesOfData.get(i,s,4);
-                shiftedY = currentY + verticalShift;
-                framesOfData.set(i,s,4, shiftedY);
-
-                currentZ = framesOfData.get(i,s,2);
+                currentZ = framesOfData.get(i,s,0);
                 shiftedZ = currentZ + forwardShift;
-                framesOfData.set(i,s,2, shiftedZ);
+                framesOfData.set(i,s,0, shiftedZ);
 
-                currentZ = framesOfData.get(i,s,5);
+                currentZ = framesOfData.get(i,s,1);
                 shiftedZ = currentZ + forwardShift;
-                framesOfData.set(i,s,5, shiftedZ);
+                framesOfData.set(i,s,1, shiftedZ);
             }
         }
         //xVals = CenterXData();
@@ -135,7 +153,7 @@ function test(){
         //console.log(predictedClassLabels[0]);
 
         predictIndex++;
-        meanPredictAcc = (((predictIndex -1)*(meanPredictAcc)+ (predictedClassLabels[0]==1))/ predictIndex)
+        meanPredictAcc = (((predictIndex -1)*(meanPredictAcc)+ (predictedClassLabels[0]==9))/ predictIndex)
         console.log(predictIndex, meanPredictAcc, predictedClassLabels[0]);
 
         }

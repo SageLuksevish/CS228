@@ -44,21 +44,29 @@ for (i =0; i < 100; i++){
 
     features = train5.pick(null,null,null,i);
     features = features.reshape(1,120);
-
     knnClassifier.addExample(features.tolist(), 5);
     console.log(i, features);
 
     /*features = train0.pick(null,null,null,i);
     features = features.reshape(1,120);
-
     knnClassifier.addExample(features.tolist(), 0);
-    console.log(i, features);
+    console.log(i, features);*/
 
     features = train1.pick(null,null,null,i);
     features = features.reshape(1,120);
-
     knnClassifier.addExample(features.tolist(), 1);
+    console.log(i, features);
+
+    /*features = train2.pick(null,null,null,i);
+    features = features.reshape(1,120);
+    knnClassifier.addExample(features.tolist(), 2);
     console.log(i, features);*/
+
+    features = train4.pick(null,null,null,i);
+    features = features.reshape(1,120);
+    knnClassifier.addExample(features.tolist(), 4);
+    console.log(i, features);
+
     }
 
 trainingCompleted = true;
@@ -127,7 +135,7 @@ function test(){
         //console.log(predictedClassLabels[0]);
 
         predictIndex++;
-        meanPredictAcc = (((predictIndex -1)*(meanPredictAcc)+ (predictedClassLabels[0]==5))/ predictIndex)
+        meanPredictAcc = (((predictIndex -1)*(meanPredictAcc)+ (predictedClassLabels[0]==1))/ predictIndex)
         console.log(predictIndex, meanPredictAcc, predictedClassLabels[0]);
 
         }

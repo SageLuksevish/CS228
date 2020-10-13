@@ -7,7 +7,6 @@ var currentLabel = 0;
 
 var predictIndex =0;
 var meanPredictAcc = 0;
-//var testingSampleIndex = 0;
 
 var framesOfData = nj.zeros([5,4,6]);
 
@@ -15,21 +14,10 @@ const knnClassifier = ml5.KNNClassifier();
 var predictLabel;
 
 var currentFeatures = nj.array();
-
-//var irisData = nj.;
-
-//numFeatures = (test0.shape[1] - 1);
-
-//numSamples = test0.shape[0];
 var predictedClassLabels = nj.zeros([1]);
 
 Leap.loop(controllerOptions, function(frame){
     clear();
-
-    //console.log();
-
-    //console.log(predictedClassLabels.toString());
-    //var irisString = irisData.toString();
 
     if (trainingCompleted == false){
 
@@ -59,6 +47,18 @@ for (i =0; i < 100; i++){
 
     knnClassifier.addExample(features.tolist(), 5);
     console.log(i, features);
+
+    /*features = train0.pick(null,null,null,i);
+    features = features.reshape(1,120);
+
+    knnClassifier.addExample(features.tolist(), 0);
+    console.log(i, features);
+
+    features = train1.pick(null,null,null,i);
+    features = features.reshape(1,120);
+
+    knnClassifier.addExample(features.tolist(), 1);
+    console.log(i, features);*/
     }
 
 trainingCompleted = true;
@@ -76,7 +76,7 @@ function test(){
         var zVals = CenterZData();
         currentMean = zVals.mean();
         var forwardShift = (.5 - currentMean);
-        console.log(currentMean);
+        //console.log(currentMean);
 
         var currentX, shiftedX, currentY, shiftedY, currentZ, shiftedZ;
 
@@ -121,8 +121,6 @@ function test(){
 
         predictLabel = knnClassifier.classify(framesOfData.tolist(),GotResults);
 
-
-
         function GotResults(err, result){
 
         predictedClassLabels[0] = parseInt(result.label);
@@ -132,11 +130,6 @@ function test(){
         meanPredictAcc = (((predictIndex -1)*(meanPredictAcc)+ (predictedClassLabels[0]==5))/ predictIndex)
         console.log(predictIndex, meanPredictAcc, predictedClassLabels[0]);
 
-
-        //testingSampleIndex++;
-        //if (testingSampleIndex > 99){
-        //    testingSampleIndex = 0;
-        //}
         }
  }
  function CenterXData(){

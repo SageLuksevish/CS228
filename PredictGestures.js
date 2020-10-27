@@ -16,13 +16,21 @@ var predictLabel;
 var currentFeatures = nj.array();
 var predictedClassLabels = nj.zeros([1]);
 
+var programState = 0;
+
 Leap.loop(controllerOptions, function(frame){
     clear();
 
-    if (trainingCompleted == false){
-
-        //train();
+    DetermineState(frame);
+    if (programState==0) {
+        HandleState0(frame);
     }
+    else if (programState==1) {
+       HandleState1(frame);
+    }
+
+
+
 
     handleFrame(frame);
     previousNumHands = frame.hands.length;
@@ -307,6 +315,28 @@ background(51);
 console.log(framesOfData.toString());
 
 }
+}
+
+function DetermineState(){
+
+    if (currentNumHands==0){
+        programState = 0;
+    }else{
+        programState = 1;
+    }
+}
+
+function HandleState0(frame) {
+    TrainKNNIfNotDoneYet();
+
+    DrawImageToHelpUserPutTheirHandOverTheDevice();
+}
+
+function TrainKNNIfNotDoneYet(){
+
+    if (trainingCompleted == false){
+        //train();
+    }
 }
 
 

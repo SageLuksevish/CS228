@@ -4,7 +4,7 @@ var trainingCompleted = false;
 var numSamples = 0;
 var numFeatures = 0;
 var currentLabel = 0;
-
+var currentNumHands;
 var predictIndex =0;
 var meanPredictAcc = 0;
 
@@ -20,19 +20,16 @@ var programState = 0;
 
 Leap.loop(controllerOptions, function(frame){
     clear();
+    currentNumHands = frame.hands.length;
 
     DetermineState(frame);
     if (programState==0) {
         HandleState0(frame);
     }
-    else if (programState==1) {
+    else{ (programState==1)
        HandleState1(frame);
     }
 
-
-
-
-    handleFrame(frame);
     previousNumHands = frame.hands.length;
 
     //console.log(framesOfData.toString());
@@ -337,6 +334,15 @@ function TrainKNNIfNotDoneYet(){
     if (trainingCompleted == false){
         //train();
     }
+}
+
+function HandleState1(frame) {
+     handleFrame(frame);
+
+}
+
+function DrawImageToHelpUserPutTheirHandOverTheDevice(){
+
 }
 
 

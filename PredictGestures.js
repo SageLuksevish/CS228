@@ -21,7 +21,7 @@ Leap.loop(controllerOptions, function(frame){
 
     if (trainingCompleted == false){
 
-        train();
+        //train();
     }
 
     handleFrame(frame);
@@ -56,6 +56,14 @@ for (i =0; i < 100; i++){
     features = features.reshape(1,120);
     knnClassifier.addExample(features.tolist(), 1);
     //console.log(i, features);
+
+    features = train1Riofrio.pick(null,null,null,i);
+    features = features.reshape(1,120);
+    knnClassifier.addExample(features.tolist(), 1);
+
+    features = train1Li.pick(null,null,null,i);
+    features = features.reshape(1,120);
+    knnClassifier.addExample(features.tolist(), 1);
 
     features = train2.pick(null,null,null,i);
     features = features.reshape(1,120);
@@ -112,25 +120,25 @@ function test(){
                 shiftedX = currentX + horizontalShift;
                 framesOfData.set(i,s,0, shiftedX);
 
-                currentX = framesOfData.get(i,s,1);
+                currentX = framesOfData.get(i,s,3);
                 shiftedX = currentX + horizontalShift;
-                framesOfData.set(i,s,1, shiftedX);
-
-                currentY = framesOfData.get(i,s,0);
-                shiftedY = currentY + verticalShift;
-                framesOfData.set(i,s,0, shiftedY);
+                framesOfData.set(i,s,3, shiftedX);
 
                 currentY = framesOfData.get(i,s,1);
                 shiftedY = currentY + verticalShift;
                 framesOfData.set(i,s,1, shiftedY);
 
-                currentZ = framesOfData.get(i,s,0);
-                shiftedZ = currentZ + forwardShift;
-                framesOfData.set(i,s,0, shiftedZ);
+                currentY = framesOfData.get(i,s,4);
+                shiftedY = currentY + verticalShift;
+                framesOfData.set(i,s,4, shiftedY);
 
-                currentZ = framesOfData.get(i,s,1);
+                currentZ = framesOfData.get(i,s,2);
                 shiftedZ = currentZ + forwardShift;
-                framesOfData.set(i,s,1, shiftedZ);
+                framesOfData.set(i,s,2, shiftedZ);
+
+                currentZ = framesOfData.get(i,s,5);
+                shiftedZ = currentZ + forwardShift;
+                framesOfData.set(i,s,5, shiftedZ);
             }
         }
         //xVals = CenterXData();
@@ -153,8 +161,9 @@ function test(){
         //console.log(predictedClassLabels[0]);
 
         predictIndex++;
-        meanPredictAcc = (((predictIndex -1)*(meanPredictAcc)+ (predictedClassLabels[0]==9))/ predictIndex)
-        console.log(predictIndex, meanPredictAcc, predictedClassLabels[0]);
+        //meanPredictAcc = (((predictIndex -1)*(meanPredictAcc)+ (predictedClassLabels[0]==9))/ predictIndex)
+        //console.log(predictIndex, meanPredictAcc, predictedClassLabels[0]);
+        console.log(predictedClassLabels[0]);
 
         }
  }
@@ -182,7 +191,7 @@ var interactionBox = frame.interactionBox;
     var hand = frame.hands[0];
     handleHand(hand, numHands,interactionBox);
 
-    test();
+    //test();
     }
 }
 

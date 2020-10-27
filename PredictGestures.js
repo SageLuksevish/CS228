@@ -238,11 +238,11 @@ framesOfData.set(fingerIndex,indiBone.type,3,x1);
 framesOfData.set(fingerIndex,indiBone.type,4,y1);
 framesOfData.set(fingerIndex,indiBone.type,5,z1);
 
-var canvasX = window.innerWidth * normalizedPrevJoint[0];
-var canvasY = window.innerHeight * (1 - normalizedPrevJoint[1]);
+var canvasX = window.innerWidth/2 * normalizedPrevJoint[0];
+var canvasY = window.innerHeight/2 * (1 - normalizedPrevJoint[1]);
 
-var canvasX2 = window.innerWidth * normalizedNextJoint[0];
-var canvasY2 = window.innerHeight * (1 - normalizedNextJoint[1]);
+var canvasX2 = window.innerWidth/2 * normalizedNextJoint[0];
+var canvasY2 = window.innerHeight/2 * (1 - normalizedNextJoint[1]);
 
 
 //[x,y] = transformCoords(x, y);

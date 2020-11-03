@@ -318,8 +318,10 @@ function DetermineState(){
 
     if (currentNumHands==0){
         programState = 0;
-    }else{
+    }else if (HandIsUncentered){
         programState = 1;
+    }else{
+        programState = 2;
     }
 }
 
@@ -344,6 +346,10 @@ function HandleState1(frame) {
 function DrawImageToHelpUserPutTheirHandOverTheDevice(){
 
     image(img, 0,0,window.innerWidth/2,window.innerHeight/2);
+}
+
+function HandIsUncentered(){
+
 }
 
 

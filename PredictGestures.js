@@ -343,6 +343,7 @@ function HandleState1(frame) {
 
 function DrawImageToHelpUserPutTheirHandOverTheDevice(){
 
+    image(img, 0,0,window.innerWidth/2,window.innerHeight/2);
 }
 
 

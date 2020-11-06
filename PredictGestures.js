@@ -25,9 +25,10 @@ Leap.loop(controllerOptions, function(frame){
     DetermineState(frame);
     if (programState==0) {
         HandleState0(frame);
-    }
-    else{ (programState==1)
+    }else if (programState==1){
        HandleState1(frame);
+    }else if (programState==2){
+       HandleState2(frame);
     }
 
     previousNumHands = frame.hands.length;
@@ -326,9 +327,29 @@ function DetermineState(){
 }
 
 function HandleState0(frame) {
+    DrawImageToHelpUserPutTheirHandOverTheDevice();
+}
+
+function HandleState1(frame) {
+
+     handleFrame(frame);
+
+     if (HandIsTooFarToTheLeft()) {
+        DrawArrowRight();
+     }
+     if (HandIsTooFarToTheRight()) {
+        DrawArrowLeft();
+     }
+     if (HandIsTooHigh()) {
+        DrawArrowDown();
+     }
+}
+
+function HandleState2(frame) {
+    handleFrame(frame);
+
     TrainKNNIfNotDoneYet();
 
-    DrawImageToHelpUserPutTheirHandOverTheDevice();
 }
 
 function TrainKNNIfNotDoneYet(){
@@ -338,11 +359,6 @@ function TrainKNNIfNotDoneYet(){
     }
 }
 
-function HandleState1(frame) {
-     handleFrame(frame);
-
-}
-
 function DrawImageToHelpUserPutTheirHandOverTheDevice(){
 
     image(img, 0,0,window.innerWidth/2,window.innerHeight/2);
@@ -350,7 +366,70 @@ function DrawImageToHelpUserPutTheirHandOverTheDevice(){
 
 function HandIsUncentered(){
 
+   if (HandIsTooFarToTheLeft()|| HandIsTooFarToTheRight()|| HandIsTooHigh()|| HandIsTooLow()|| HandIsTooFar()){
+        return true;
+   }else{
+        return false;
+   }
 }
+
+function HandIsTooFarToTheLeft(){
+    var xVals = CenterXData();
+    var currentMean = xVals.mean();
+
+    if (currentMean <= 0.25){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function HandIsTooFarToTheRight(){
+    var xVals = CenterXData();
+    var currentMean = xVals.mean();
+
+    if (currentMean >= 0.75){
+        return true;
+    }else{return false; }
+}
+
+function HandIsTooHigh(){
+    var yVals = CenterYData();
+    var currentMean = yVals.mean();
+
+    if (currentMean >= 0.75){
+        return true;
+    }else{return false; }
+}
+
+function HandIsTooLow(){
+    var yVals = CenterYData();
+    var currentMean = yVals.mean();
+
+    if (currentMean <= 0.25){
+        return true;
+    }else{return false; }
+}
+
+
+
+function DrawArrowRight(){
+    image(rightImg, 500, 0, window.innerWidth/2, window.innerHeight/2);
+}
+
+function DrawArrowLeft(){
+    image(leftImg, 500, 0, window.innerWidth/2, window.innerHeight/2);
+}
+
+function DrawArrowDown(){
+    image(downImg, 500, 0, window.innerWidth/2, window.innerHeight/2);
+}
+
+function DrawArrowUp(){
+    image(upImg, 500, 0, window.innerWidth/2, window.innerHeight/2);
+}
+
+
 
 
 

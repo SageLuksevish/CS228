@@ -343,6 +343,15 @@ function HandleState1(frame) {
      if (HandIsTooHigh()) {
         DrawArrowDown();
      }
+     if (HandIsTooLow()) {
+        DrawArrowUp();
+     }
+     if (HandIsTooFar()) {
+        DrawArrowBack();
+     }
+     if (HandIsTooClose()) {
+        DrawArrowForward();
+     }
 }
 
 function HandleState2(frame) {
@@ -366,7 +375,8 @@ function DrawImageToHelpUserPutTheirHandOverTheDevice(){
 
 function HandIsUncentered(){
 
-   if (HandIsTooFarToTheLeft()|| HandIsTooFarToTheRight()|| HandIsTooHigh()|| HandIsTooLow()|| HandIsTooFar()){
+   if (HandIsTooFarToTheLeft()|| HandIsTooFarToTheRight()|| HandIsTooHigh()|| HandIsTooLow()||
+   HandIsTooFar()|| HandIsTooClose()){
         return true;
    }else{
         return false;
@@ -392,7 +402,6 @@ function HandIsTooFarToTheRight(){
         return true;
     }else{return false; }
 }
-
 function HandIsTooHigh(){
     var yVals = CenterYData();
     var currentMean = yVals.mean();
@@ -401,7 +410,6 @@ function HandIsTooHigh(){
         return true;
     }else{return false; }
 }
-
 function HandIsTooLow(){
     var yVals = CenterYData();
     var currentMean = yVals.mean();
@@ -410,25 +418,41 @@ function HandIsTooLow(){
         return true;
     }else{return false; }
 }
+function HandIsTooFar(){
+    var zVals = CenterZData();
+    var currentMean = zVals.mean();
 
+    if (currentMean <= 0.25){
+        return true;
+    }else{return false; }
+}
+function HandIsTooClose(){
+    var zVals = CenterZData();
+    var currentMean = zVals.mean();
 
+    if (currentMean >= 0.75){
+        return true;
+    }else{return false; }
+}
 
 function DrawArrowRight(){
     image(rightImg, 500, 0, window.innerWidth/2, window.innerHeight/2);
 }
-
 function DrawArrowLeft(){
     image(leftImg, 500, 0, window.innerWidth/2, window.innerHeight/2);
 }
-
 function DrawArrowDown(){
     image(downImg, 500, 0, window.innerWidth/2, window.innerHeight/2);
 }
-
 function DrawArrowUp(){
     image(upImg, 500, 0, window.innerWidth/2, window.innerHeight/2);
 }
-
+function DrawArrowBack(){
+    image(backImg, 500, 0, window.innerWidth/2, window.innerHeight/2);
+}
+function DrawArrowForward(){
+    image(forwardImg, 500, 0, window.innerWidth/2, window.innerHeight/2);
+}
 
 
 

@@ -357,6 +357,8 @@ function HandleState1(frame) {
 function HandleState2(frame) {
     handleFrame(frame);
 
+    //test();
+
     TrainKNNIfNotDoneYet();
 
 }
@@ -364,7 +366,7 @@ function HandleState2(frame) {
 function TrainKNNIfNotDoneYet(){
 
     if (trainingCompleted == false){
-        //train();
+        train();
     }
 }
 

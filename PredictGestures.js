@@ -458,7 +458,8 @@ function DrawArrowForward(){
 
 function SignIn(){
 
-    console.log("SignIn has been called");
+    username = document.getElementById("username").value;
+    console.log(username);
 }
 
 

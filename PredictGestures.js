@@ -456,7 +456,10 @@ function DrawArrowForward(){
     image(forwardImg, 500, 0, window.innerWidth/2, window.innerHeight/2);
 }
 
+function SignIn(){
 
+    console.log("SignIn has been called");
+}
 
 
 

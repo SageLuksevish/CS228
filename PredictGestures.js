@@ -478,8 +478,23 @@ function SignIn(){
 
 function IsNewUser(username,list){
 
-    var users = list.children;
 
+        //console.log(username);
+    var users = list.children;
+    var usernameFound = false;
+
+    for(i=0; i< users.length; i++){
+
+        //console.log(users[i]);
+        //console.log(users[i].innerHTML);
+
+        if(username == users[i].innerHTML){
+
+            usernameFound = true;
+            //console.log(username);
+        }
+    }
+    return (usernameFound == false);
 }
 
 

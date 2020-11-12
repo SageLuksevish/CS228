@@ -458,20 +458,28 @@ function DrawArrowForward(){
 
 function SignIn(){
 
-
-
     var list = document.getElementById("users");
-    var item = document.createElement("li");
 
     username = document.getElementById("username").value;
 
-    item.innerHTML = String(username);
+    if(IsNewUser(username,list)){
 
-    list.appendChild(item);
+        var item = document.createElement("li");
+
+        item.innerHTML = String(username);
+
+        list.appendChild(item);
+    }
 
     console.log(list.innerHTML);
 
     return false;
+}
+
+function IsNewUser(username,list){
+
+    var users = list.children;
+
 }
 
 

@@ -466,6 +466,8 @@ function SignIn(){
 
         var item = document.createElement("li");
 
+        item.id = String(username) + " name";
+
         item.innerHTML = String(username);
 
         list.appendChild(item);
@@ -478,20 +480,13 @@ function SignIn(){
 
 function IsNewUser(username,list){
 
-
-        //console.log(username);
     var users = list.children;
     var usernameFound = false;
 
     for(i=0; i< users.length; i++){
 
-        //console.log(users[i]);
-        //console.log(users[i].innerHTML);
-
         if(username == users[i].innerHTML){
-
             usernameFound = true;
-            //console.log(username);
         }
     }
     return (usernameFound == false);

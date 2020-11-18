@@ -464,18 +464,16 @@ function SignIn(){
 
     if(IsNewUser(username,list)){
 
-        var item = document.createElement("li");
-        item.id = String(username) + "_name";
-        item.innerHTML = String(username);
-        list.appendChild(item);
+        CreateNewUser(username,list);
 
-        var item2 = document.createElement("li");
-        item2.id = String(username) + "_signins";
-        item2.innerHTML = 1;
-        list.appendChild(item2);
+        CreateSignInItem(username, list);
+    }else{
+        ID = String(username) + "_signins";
+        listItem = document.getElementById( ID );
+        listItem.innerHTML = parseInt(listItem.innerHTML) + 1;
     }
 
-    console.log(list.innerHTML);
+    console.log(list);
 
     return false;
 }
@@ -494,15 +492,19 @@ function IsNewUser(username,list){
     return (usernameFound == false);
 }
 
-function userLogins(list){
+function CreateNewUser(username, list){
+    var item = document.createElement("li");
+        item.id = String(username) + "_name";
+        item.innerHTML = String(username);
+        list.appendChild(item);
+}
+
+function CreateSignInItem(username, list){
     var item2 = document.createElement("li");
-        item2.id = "useri_signins";
+        item2.id = String(username) + "_signins";
         item2.innerHTML = 1;
         list.appendChild(item2);
 }
-
-
-//userLogins(list);
 
 
 

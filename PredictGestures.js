@@ -473,7 +473,7 @@ function SignIn(){
         listItem.innerHTML = parseInt(listItem.innerHTML) + 1;
     }
 
-    console.log(list);
+    console.log(list.innerHTML);
 
     return false;
 }

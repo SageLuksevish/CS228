@@ -17,6 +17,7 @@ var currentFeatures = nj.array();
 var predictedClassLabels = nj.zeros([1]);
 
 var programState = 0;
+var digitToShow = 0;
 
 Leap.loop(controllerOptions, function(frame){
     clear();
@@ -357,9 +358,9 @@ function HandleState1(frame) {
 function HandleState2(frame) {
     handleFrame(frame);
 
-    //test();
-
     TrainKNNIfNotDoneYet();
+
+    //test();
 
 }
 

@@ -17,8 +17,8 @@ function setup() {
     leftImg = loadImage('https://i.imgur.com/BfTWID7.jpeg');
     rightImg = loadImage('https://i.imgur.com/jOLRhb5.jpeg');
 
-    ZeroImg = loadImage('https://i.imgur.com/4VPaCB1.png');
-    FourImg = loadImage('https://i.imgur.com/3RC9xik.png');
+    zeroImg = loadImage('https://i.imgur.com/4VPaCB1.png');
+    fourImg = loadImage('https://i.imgur.com/3RC9xik.png');
 
 }
 

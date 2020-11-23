@@ -24,11 +24,14 @@ Leap.loop(controllerOptions, function(frame){
     currentNumHands = frame.hands.length;
 
     DetermineState(frame);
+
+    //console.log(programState);
+
     if (programState==0) {
         HandleState0(frame);
     }else if (programState==1){
        HandleState1(frame);
-    }else if (programState==2){
+    }else{
        HandleState2(frame);
     }
 
@@ -320,9 +323,9 @@ function DetermineState(){
 
     if (currentNumHands==0){
         programState = 0;
-    }else if (HandIsUncentered){
+    }else if (HandIsUncentered()){
         programState = 1;
-    }else{
+    }else {
         programState = 2;
     }
 }
@@ -357,11 +360,10 @@ function HandleState1(frame) {
 
 function HandleState2(frame) {
     handleFrame(frame);
+    DrawLowerRightPanel();
 
-    TrainKNNIfNotDoneYet();
-
+    //TrainKNNIfNotDoneYet();
     //test();
-
 }
 
 function TrainKNNIfNotDoneYet(){
@@ -378,8 +380,17 @@ function DrawImageToHelpUserPutTheirHandOverTheDevice(){
 
 function HandIsUncentered(){
 
-   if (HandIsTooFarToTheLeft()|| HandIsTooFarToTheRight()|| HandIsTooHigh()|| HandIsTooLow()||
-   HandIsTooFar()|| HandIsTooClose()){
+    if (HandIsTooFarToTheLeft()){
+        return true;
+   }else if (HandIsTooFarToTheRight()){
+        return true;
+   }else if (HandIsTooHigh()){
+        return true;
+   }else if (HandIsTooLow()){
+        return true;
+   }else if (HandIsTooFar()){
+        return true;
+   }else if (HandIsTooClose()){
         return true;
    }else{
         return false;
@@ -439,22 +450,22 @@ function HandIsTooClose(){
 }
 
 function DrawArrowRight(){
-    image(rightImg, 500, 0, window.innerWidth/2, window.innerHeight/2);
+    image(rightImg, window.innerWidth/2, 0, 475, 300);
 }
 function DrawArrowLeft(){
-    image(leftImg, 500, 0, window.innerWidth/2, window.innerHeight/2);
+    image(leftImg, window.innerWidth/2, 0, 475, 300);
 }
 function DrawArrowDown(){
-    image(downImg, 500, 0, window.innerWidth/2, window.innerHeight/2);
+    image(downImg, window.innerWidth/2, 0, 475, 300);
 }
 function DrawArrowUp(){
-    image(upImg, 500, 0, window.innerWidth/2, window.innerHeight/2);
+    image(upImg, window.innerWidth/2, 0, 475, 300);
 }
 function DrawArrowBack(){
-    image(backImg, 500, 0, window.innerWidth/2, window.innerHeight/2);
+    image(backImg, window.innerWidth/2, 0, 475, 300);
 }
 function DrawArrowForward(){
-    image(forwardImg, 500, 0, window.innerWidth/2, window.innerHeight/2);
+    image(forwardImg, window.innerWidth/2, 0, 475, 300);
 }
 
 function SignIn(){
@@ -507,8 +518,16 @@ function CreateSignInItem(username, list){
         list.appendChild(item2);
 }
 
+function DrawLowerRightPanel(){
 
+    if(digitToShow == 0){
 
+        image(zeroImg, window.innerWidth/2, window.innerHeight/2,475,300);
+
+    }else{
+        image(fourImg, window.innerWidth, window.innerHeight,475,300);
+    }
+}
 
 
 

@@ -18,6 +18,7 @@ var predictedClassLabels = nj.zeros([1]);
 
 var programState = 0;
 var digitToShow = 0;
+var timeSinceLastDigitChange = new Date();
 
 Leap.loop(controllerOptions, function(frame){
     clear();
@@ -361,7 +362,7 @@ function HandleState1(frame) {
 function HandleState2(frame) {
     handleFrame(frame);
     DrawLowerRightPanel();
-
+    DetermineWhetherToSwitchDigits()
     //TrainKNNIfNotDoneYet();
     //test();
 }
@@ -525,9 +526,39 @@ function DrawLowerRightPanel(){
         image(zeroImg, window.innerWidth/2, window.innerHeight/2,475,300);
 
     }else{
-        image(fourImg, window.innerWidth, window.innerHeight,475,300);
+        image(fourImg, window.innerWidth/2, window.innerHeight/2,475,300);
     }
 }
+
+function DetermineWhetherToSwitchDigits(){
+   if (TimeToSwitchDigits()){
+
+        SwitchDigits();
+   }
+}
+
+function TimeToSwitchDigits(){
+
+    var currentTime = new Date();
+    var difInMilliSeconds = currentTime - timeSinceLastDigitChange;
+    console.log(difInMilliSeconds);
+    var difInSeconds = difInMilliSeconds/1000;
+    console.log(difInSeconds);
+    if (difInSeconds>=1){
+        return true;
+    }
+}
+
+function SwitchDigits(){
+
+    if (digitToShow == 0){
+        digitToShow =4;
+    }else{
+        digitToShow = 0;
+    }
+    timeSinceLastDigitChange = new Date();
+}
+
 
 
 

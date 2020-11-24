@@ -320,8 +320,9 @@ console.log(framesOfData.toString());
 }
 }
 
-function DetermineState(){
+function DetermineState(frame){
 
+    handleFrame(frame);
     if (currentNumHands==0){
         programState = 0;
     }else if (HandIsUncentered()){
@@ -338,6 +339,7 @@ function HandleState0(frame) {
 function HandleState1(frame) {
 
      handleFrame(frame);
+     //console.log("state 1");
 
      if (HandIsTooFarToTheLeft()) {
         DrawArrowRight();
@@ -363,8 +365,10 @@ function HandleState2(frame) {
     handleFrame(frame);
     DrawLowerRightPanel();
     DetermineWhetherToSwitchDigits()
-    //TrainKNNIfNotDoneYet();
-    //test();
+    //console.log("State 2");
+
+    TrainKNNIfNotDoneYet();
+    test();
 }
 
 function TrainKNNIfNotDoneYet(){
@@ -541,10 +545,10 @@ function TimeToSwitchDigits(){
 
     var currentTime = new Date();
     var difInMilliSeconds = currentTime - timeSinceLastDigitChange;
-    console.log(difInMilliSeconds);
+    //console.log(difInMilliSeconds);
     var difInSeconds = difInMilliSeconds/1000;
-    console.log(difInSeconds);
-    if (difInSeconds>=1){
+    //console.log(difInSeconds);
+    if (difInSeconds>=4){
         return true;
     }
 }

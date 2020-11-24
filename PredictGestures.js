@@ -172,9 +172,12 @@ function test(){
         //console.log(predictedClassLabels[0]);
 
         predictIndex++;
-        //meanPredictAcc = (((predictIndex -1)*(meanPredictAcc)+ (predictedClassLabels[0]==9))/ predictIndex)
-        //console.log(predictIndex, meanPredictAcc, predictedClassLabels[0]);
-        console.log(predictedClassLabels[0]);
+        if(predictedClassLabels[0]!=0){
+            predictIndex =1;
+        }
+        meanPredictAcc = (((predictIndex -1)*(meanPredictAcc)+ (predictedClassLabels[0]==0))/ predictIndex)
+        console.log(predictIndex, meanPredictAcc, predictedClassLabels[0]);
+        //console.log(predictedClassLabels[0]);
 
         }
  }

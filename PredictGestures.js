@@ -374,11 +374,11 @@ if (currentNumHands==2){
 }
 
 if (previousNumHands == 2 && currentNumHands == 1){
-background(51);
-//console.log(framesOfData.toString());
-console.log(framesOfData.toString());
+    background(51);
+    //console.log(framesOfData.toString());
+    console.log(framesOfData.toString());
 
-}
+    }
 }
 
 function DetermineState(frame){
@@ -583,11 +583,13 @@ function CreateSignInItem(username, list){
 function DrawLowerRightPanel(){
 
     if(digitToShow == 0){
-
         image(zeroImg, window.innerWidth/2, window.innerHeight/2,475,300);
-
-    }else{
+    }else if (digitToShow == 4){
         image(fourImg, window.innerWidth/2, window.innerHeight/2,475,300);
+    }else if (digitToShow == 1){
+        image(zeroImgur, window.innerWidth/2, window.innerHeight/2,475,300);
+    }else if (digitToShow == 5){
+        image(fourImgur, window.innerWidth/2, window.innerHeight/2,475,300);
     }
 }
 
@@ -600,22 +602,44 @@ function DetermineWhetherToSwitchDigits(){
 
 function TimeToSwitchDigits(){
 
-    var currentTime = new Date();
-    var difInMilliSeconds = currentTime - timeSinceLastDigitChange;
-    //console.log(difInMilliSeconds);
-    var difInSeconds = difInMilliSeconds/1000;
-    //console.log(difInSeconds);
-    if (difInSeconds>=4 && meanPredictAcc >= .98){
-        return true;
+    if (meanPredictAcc >= .98){
+
+        var currentTime = new Date();
+        var difInMilliSeconds = currentTime - timeSinceLastDigitChange;
+        //console.log(difInMilliSeconds);
+        var difInSeconds = difInMilliSeconds/1000;
+        //console.log(difInSeconds);
+
+        if(difInSeconds>=3 && meanPredictAcc >= .98){
+            return true;
+        }
+
+        //if(difInSeconds>=6 && meanPredictAcc >= .98){
+            //return true;
+        //}
     }
 }
 
 function SwitchDigits(){
 
     if (digitToShow == 0){
-        digitToShow =4;
-    }else{
+        digitToShow = 1;
+    }else if (digitToShow ==1){
+        digitToShow = 4;
+    }else if (digitToShow == 4){
+        digitToShow = 5;
+    }else if (digitToShow == 5){
         digitToShow = 0;
+    }
+    timeSinceLastDigitChange = new Date();
+}
+
+function ScaffoldDigits(){
+
+    if (digitToShow == 0){
+        digitToShow =1;
+    }else{
+        digitToShow = 5;
     }
     timeSinceLastDigitChange = new Date();
 }

@@ -17,8 +17,12 @@ function setup() {
     leftImg = loadImage('https://i.imgur.com/BfTWID7.jpeg');
     rightImg = loadImage('https://i.imgur.com/jOLRhb5.jpeg');
 
+    //images of both the asl sign and the number
     zeroImg = loadImage('https://i.imgur.com/4VPaCB1.png');
     fourImg = loadImage('https://i.imgur.com/3RC9xik.png');
 
+    //images of just the number
+    zeroImgur = loadImage('https://i.imgur.com/hlsaExM.png');
+    fourImgur = loadImage('https://i.imgur.com/P01AH57.png');
 }
 

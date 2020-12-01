@@ -184,7 +184,7 @@ function test(){
         }
         meanPredictAcc = (((predictIndex -1)*(meanPredictAcc)+ (predictedClassLabels[0]==curNum))/ predictIndex)
 
-        console.log(predictIndex, meanPredictAcc, predictedClassLabels[0]);
+        //console.log(predictIndex, meanPredictAcc, predictedClassLabels[0]);
         }
  }
 
@@ -610,7 +610,13 @@ function TimeToSwitchDigits(){
         var difInSeconds = difInMilliSeconds/1000;
         //console.log(difInSeconds);
 
-        if(difInSeconds>=3 && meanPredictAcc >= .98){
+        if(digitToShow==1 || digitToShow==5){
+            if(difInSeconds>=2 && meanPredictAcc >= .98){
+                   return true;
+            }
+        }
+
+        if(difInSeconds>=5 && meanPredictAcc >= .98){
             return true;
         }
 

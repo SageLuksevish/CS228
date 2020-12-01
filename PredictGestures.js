@@ -19,6 +19,7 @@ var predictedClassLabels = nj.zeros([1]);
 var programState = 0;
 var digitToShow = 0;
 var timeSinceLastDigitChange = new Date();
+var curNum = 0;
 
 Leap.loop(controllerOptions, function(frame){
     clear();
@@ -175,12 +176,18 @@ function test(){
         if(predictedClassLabels[0]!=0){
             predictIndex =1;
         }
-        meanPredictAcc = (((predictIndex -1)*(meanPredictAcc)+ (predictedClassLabels[0]==0))/ predictIndex)
-        console.log(predictIndex, meanPredictAcc, predictedClassLabels[0]);
-        //console.log(predictedClassLabels[0]);
 
+        if (digitToShow==0){
+            curNum = 0;
+        }else if(digitToShow==4){
+            curNum = 4;
+        }
+        meanPredictAcc = (((predictIndex -1)*(meanPredictAcc)+ (predictedClassLabels[0]==curNum))/ predictIndex)
+
+        console.log(predictIndex, meanPredictAcc, predictedClassLabels[0]);
         }
  }
+
  function CenterXData(){
     var xValues = framesOfData.slice([],[],[0,6,3]);
     return xValues;
@@ -204,8 +211,6 @@ var interactionBox = frame.interactionBox;
 
     var hand = frame.hands[0];
     handleHand(hand, numHands,interactionBox);
-
-    //test();
     }
 }
 
@@ -226,84 +231,137 @@ handleBone(bones[n], numHands, fingType, intBox);
 }
 
 function handleBone(boneType, numHands, fingerIndex, intBox){
-var interBox = intBox;
-var indiBone = boneType;
+    var interBox = intBox;
+    var indiBone = boneType;
 
-var bonePrevJoint = indiBone.prevJoint;
-var boneNextJoint = indiBone.nextJoint;
-
-
-var normalizedPrevJoint = interBox.normalizePoint(bonePrevJoint, true);
-//console.log(normalizedPrevJoint);
-
-var normalizedNextJoint = interBox.normalizePoint(boneNextJoint, true);
-
-x = normalizedPrevJoint[0];
-y = normalizedPrevJoint[1];
-z = normalizedPrevJoint[2];
-x1 = normalizedNextJoint[0]
-y1 = normalizedNextJoint[1];
-z1 = normalizedNextJoint[2];
-
-framesOfData.set(fingerIndex,indiBone.type,0,x);
-framesOfData.set(fingerIndex,indiBone.type,1,y);
-framesOfData.set(fingerIndex,indiBone.type,2,z);
-framesOfData.set(fingerIndex,indiBone.type,3,x1);
-framesOfData.set(fingerIndex,indiBone.type,4,y1);
-framesOfData.set(fingerIndex,indiBone.type,5,z1);
-
-var canvasX = window.innerWidth/2 * normalizedPrevJoint[0];
-var canvasY = window.innerHeight/2 * (1 - normalizedPrevJoint[1]);
-
-var canvasX2 = window.innerWidth/2 * normalizedNextJoint[0];
-var canvasY2 = window.innerHeight/2 * (1 - normalizedNextJoint[1]);
+    var bonePrevJoint = indiBone.prevJoint;
+    var boneNextJoint = indiBone.nextJoint;
 
 
-//[x,y] = transformCoords(x, y);
-//[x1, y1] = transformCoords(x1, y1);
+    var normalizedPrevJoint = interBox.normalizePoint(bonePrevJoint, true);
+    //console.log(normalizedPrevJoint);
 
-var cordSum = (x + x1 + y + y1 + z + z1);
+    var normalizedNextJoint = interBox.normalizePoint(boneNextJoint, true);
+
+    x = normalizedPrevJoint[0];
+    y = normalizedPrevJoint[1];
+    z = normalizedPrevJoint[2];
+    x1 = normalizedNextJoint[0]
+    y1 = normalizedNextJoint[1];
+    z1 = normalizedNextJoint[2];
+
+    framesOfData.set(fingerIndex,indiBone.type,0,x);
+    framesOfData.set(fingerIndex,indiBone.type,1,y);
+    framesOfData.set(fingerIndex,indiBone.type,2,z);
+    framesOfData.set(fingerIndex,indiBone.type,3,x1);
+    framesOfData.set(fingerIndex,indiBone.type,4,y1);
+    framesOfData.set(fingerIndex,indiBone.type,5,z1);
+
+    var canvasX = window.innerWidth/2 * normalizedPrevJoint[0];
+    var canvasY = window.innerHeight/2 * (1 - normalizedPrevJoint[1]);
+
+    var canvasX2 = window.innerWidth/2 * normalizedNextJoint[0];
+    var canvasY2 = window.innerHeight/2 * (1 - normalizedNextJoint[1]);
 
 
+    //[x,y] = transformCoords(x, y);
+    //[x1, y1] = transformCoords(x1, y1);
 
-if (numHands.length == 1){
+    var cordSum = (x + x1 + y + y1 + z + z1);
 
-    if (indiBone.type == 0){
-    stroke(124,252,0);
-    strokeWeight(7*5);
-    line(canvasX,canvasY,canvasX2,canvasY2,);
-    } else if (indiBone.type == 1){
-    stroke(0,255,127);
-    strokeWeight(5*5);
-    line(canvasX,canvasY,canvasX2,canvasY2);
-    } else if (indiBone.type == 2){
-    stroke(60,179,113);
-    strokeWeight(3*5);
-    line(canvasX,canvasY,canvasX2,canvasY2);
-    } else if (indiBone.type == 3){
-    stroke('olive');
-    strokeWeight(2*5);
-    line(canvasX,canvasY,canvasX2,canvasY2);
-}
-} else if (numHands.length == 2){
-    if (indiBone.type == 0){
-    stroke(255,0,0);
-    strokeWeight(7*5);
-    line(canvasX,canvasY,canvasX2,canvasY2);
-    } else if (indiBone.type == 1){
-    stroke(255,99,71);
-    strokeWeight(5*5);
-    line(canvasX,canvasY,canvasX2,canvasY2);
-    } else if (indiBone.type == 2){
-    stroke(178,34,34);
-    strokeWeight(3*5);
-    line(canvasX,canvasY,canvasX2,canvasY2);
-    } else if (indiBone.type == 3) {
-    stroke(128,0,0);
-    strokeWeight(2*5);
-    line(canvasX,canvasY,canvasX2,canvasY2);
-}
-}
+    if (programState==0 && numHands==1){
+        if (numHands.length == 1){
+            if (indiBone.type == 0){
+                stroke(124,252,0);
+                strokeWeight(7*5);
+                line(canvasX,canvasY,canvasX2,canvasY2,);
+            } else if (indiBone.type == 1){
+                stroke(0,255,127);
+                strokeWeight(5*5);
+                line(canvasX,canvasY,canvasX2,canvasY2);
+            } else if (indiBone.type == 2){
+                stroke(60,179,113);
+                strokeWeight(3*5);
+                line(canvasX,canvasY,canvasX2,canvasY2);
+            } else if (indiBone.type == 3){
+                stroke('olive');
+                strokeWeight(2*5);
+                line(canvasX,canvasY,canvasX2,canvasY2);
+            }
+        }
+    }else if (programState==1 && numHands==1){
+            if (indiBone.type == 0){
+                stroke(255,0,0);
+                strokeWeight(7*5);
+                line(canvasX,canvasY,canvasX2,canvasY2);
+            } else if (indiBone.type == 1){
+                stroke(255,99,71);
+                strokeWeight(5*5);
+                line(canvasX,canvasY,canvasX2,canvasY2);
+            } else if (indiBone.type == 2){
+                stroke(178,34,34);
+                strokeWeight(3*5);
+                line(canvasX,canvasY,canvasX2,canvasY2);
+            } else if (indiBone.type == 3) {
+                stroke(128,0,0);
+                strokeWeight(2*5);
+                line(canvasX,canvasY,canvasX2,canvasY2);
+            }
+        }else if (programState==2 && numHands.length==1){
+
+            var avg = meanPredictAcc;
+                var stk = stroke(20,20,20);
+                if(avg <=.15){
+                        stk= stroke(255,0,0);
+                    }else if (avg <=.3&& avg>=.15){
+                        stk= stroke(255,99,71);
+                    }else if (avg <= .45&& avg >=.3){
+                        stk= stroke(178,34,34);
+                    }else if (avg<= .65&& avg >=.45){
+                        stk= stroke(60,179,113);
+                    }else if (avg<= .8&& avg >=.65){
+                        stroke(0,255,127);
+                    }else{
+                        stroke(124,252,0);
+                    }
+
+                if (indiBone.type == 0){
+                    stk;
+                    strokeWeight(7*5);
+                    line(canvasX,canvasY,canvasX2,canvasY2,);
+                } else if (indiBone.type == 1){
+                    stk;
+                    strokeWeight(5*5);
+                    line(canvasX,canvasY,canvasX2,canvasY2);
+                } else if (indiBone.type == 2){
+                    stk;
+                    strokeWeight(3*5);
+                    line(canvasX,canvasY,canvasX2,canvasY2);
+                } else if (indiBone.type == 3){
+                    stk;
+                    strokeWeight(2*5);
+                    line(canvasX,canvasY,canvasX2,canvasY2);
+                }
+
+    }else if (numHands.length == 2){
+            if (indiBone.type == 0){
+                stroke(255,0,0);
+                strokeWeight(7*5);
+                line(canvasX,canvasY,canvasX2,canvasY2);
+            } else if (indiBone.type == 1){
+                stroke(255,99,71);
+                strokeWeight(5*5);
+                line(canvasX,canvasY,canvasX2,canvasY2);
+            } else if (indiBone.type == 2){
+                stroke(178,34,34);
+                strokeWeight(3*5);
+                line(canvasX,canvasY,canvasX2,canvasY2);
+            } else if (indiBone.type == 3) {
+                stroke(128,0,0);
+                strokeWeight(2*5);
+                line(canvasX,canvasY,canvasX2,canvasY2);
+            }
+    }
 }
 
 function RecordData (){
@@ -341,9 +399,6 @@ function HandleState0(frame) {
 
 function HandleState1(frame) {
 
-     handleFrame(frame);
-     //console.log("state 1");
-
      if (HandIsTooFarToTheLeft()) {
         DrawArrowRight();
      }
@@ -365,13 +420,12 @@ function HandleState1(frame) {
 }
 
 function HandleState2(frame) {
+    TrainKNNIfNotDoneYet();
+    test();
+
     handleFrame(frame);
     DrawLowerRightPanel();
     DetermineWhetherToSwitchDigits()
-    //console.log("State 2");
-
-    TrainKNNIfNotDoneYet();
-    test();
 }
 
 function TrainKNNIfNotDoneYet(){
@@ -551,7 +605,7 @@ function TimeToSwitchDigits(){
     //console.log(difInMilliSeconds);
     var difInSeconds = difInMilliSeconds/1000;
     //console.log(difInSeconds);
-    if (difInSeconds>=4){
+    if (difInSeconds>=4 && meanPredictAcc >= .98){
         return true;
     }
 }
@@ -565,8 +619,3 @@ function SwitchDigits(){
     }
     timeSinceLastDigitChange = new Date();
 }
-
-
-
-
-
